@@ -8,7 +8,7 @@ echo "Actualizando el sistema..."
 sudo apt update && sudo apt upgrade -y
 
 echo "Instalando dependencias necesarias..."
-sudo apt install -y build-essential libpcap-dev libpcre3-dev libdumbnet-dev bison flex zlib1g-dev flex
+sudo apt install -y build-essential libpcap-dev libpcre3-dev libdumbnet-dev bison flex zlib1g-dev flex libntirpc-dev
 
 echo "Creando carpeta temporal para los ficheros"
 sudo mkdir /usr/src/snort_src
@@ -27,6 +27,11 @@ echo "Descargando y compilando Snort..."
 wget https://www.snort.org/downloads/snort/snort-2.9.20.tar.gz
 tar xvfz snort-2.9.20.tar.gz
 cd snort-2.9.20
+cp -r /usr/include/ntirpc/rpc ./rpc
+cp -r /usr/include/ntirpc/misc ./misc
+cp -r /usr/include/ntirpc/netconfig.h ./
+cp -r /usr/include/ntirpc/intrinsic.h ./
+cp -r /usr/include/ntirpc/reentrant.h ./
 ./configure --enable-sourcefire --disable-open-appid
 make
 sudo make install
